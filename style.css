@@ -57,41 +57,64 @@ body {
     font-size: 1rem;
 }
 
-/* Hero Section */
+/* Updated Hero Section */
 .hero {
-    background: linear-gradient(135deg, var(--primary) 0%, #333 100%);
-    color: var(--light);
-    padding: 4rem 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    color: var(--primary);
+    padding: 5rem 0 4rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
 }
 
 .hero-content h2 {
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    margin-bottom: 1.25rem;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--primary) 0%, #2d3748 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
+    font-size: 1.25rem;
+    margin-bottom: 2.5rem;
+    color: var(--gray);
+    font-weight: 400;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .cta-button {
     display: inline-block;
     background: var(--accent);
     color: var(--light);
-    padding: 1rem 2rem;
+    padding: 1rem 2.5rem;
     text-decoration: none;
-    border-radius: 6px;
+    border-radius: 8px;
     font-weight: 600;
     font-size: 1.1rem;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 14px 0 rgba(0, 102, 204, 0.3);
 }
 
 .cta-button:hover {
     background: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 102, 204, 0.4);
 }
 
 /* Carousel Section */
@@ -121,8 +144,9 @@ body {
 
 .carousel-slide img {
     width: 100%;
-    height: 400px;
+    height: 500px;
     object-fit: cover;
+    object-position: center 60%;
     display: block;
 }
 
@@ -195,6 +219,19 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
+}
+
+/* Ensure the grid works well with 6 items */
+@media (min-width: 1200px) {
+    .improvement-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+    .improvement-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .improvement-item {
@@ -272,68 +309,178 @@ body {
     margin: 0 auto;
 }
 
+/* Coach Profile Section */
+.coach-profile-section {
+    padding: 5rem 0;
+    background: var(--gray-light);
+}
+
+.coach-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 4rem;
+}
+
+.coach-image-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.coach-headshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.coach-intro h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+}
+
+.coach-quote {
+    font-size: 1.3rem;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.6;
+    border-left: 4px solid var(--accent);
+    padding-left: 2rem;
+    margin: 0;
+}
+
+/* About Section */
+.about-section {
+    margin-bottom: 4rem;
+}
+
+.about-header h4 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.about-content p {
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    font-size: 1.05rem;
+}
+
+.about-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Experience Grid */
+.experience-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.experience-column h5 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+}
+
+.experience-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.experience-list li {
+    padding: 0.8rem 0;
+    color: var(--gray);
+    line-height: 1.5;
+    position: relative;
+    padding-left: 1.5rem;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.experience-list li:last-child {
+    border-bottom: none;
+}
+
+.experience-list li::before {
+    content: '•';
+    color: var(--accent);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
 /* Contact Section */
 .contact {
-    padding: 4rem 0;
-    background: var(--gray-light);
+    padding: 5rem 0;
+    background: var(--light);
 }
 
 .contact h3 {
     font-size: 1.8rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     text-align: center;
     color: var(--primary);
 }
 
 .contact-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 3rem;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .contact-item {
     text-align: center;
+    padding: 2rem;
+    background: var(--gray-light);
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateY(-5px);
 }
 
 .contact-item strong {
     display: block;
     color: var(--accent);
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
 }
 
 .contact-item p {
     color: var(--primary);
     font-size: 1.1rem;
     font-weight: 500;
+    margin: 0;
 }
 
-.coach-profile {
-    background: var(--light);
-    padding: 2rem;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 400px;
-    margin: 0 auto;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.instagram-handles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.coach-text h4 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
+.instagram-handles span {
+    display: block;
     color: var(--primary);
-}
-
-.coach-text p {
-    color: var(--gray);
-    margin-bottom: 0.5rem;
-}
-
-.coach-text .focus {
-    color: var(--accent);
-    font-weight: 600;
-    font-style: italic;
+    font-size: 1.1rem;
+    font-weight: 500;
 }
 
 /* Footer */
@@ -365,7 +512,8 @@ body {
     }
 
     .carousel-slide img {
-        height: 300px;
+        height: 400px;
+        object-position: center 50%;
     }
 
     .carousel-btn {
@@ -379,9 +527,39 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .coach-header {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .coach-image-container {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+    }
+
+    .coach-intro h3 {
+        font-size: 1.8rem;
+    }
+
+    .coach-quote {
+        font-size: 1.1rem;
+        padding-left: 1.5rem;
+    }
+
+    .experience-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .about-content p {
+        text-align: left;
+    }
+
     .contact-info {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 2rem;
     }
 
     .container {
@@ -395,7 +573,8 @@ body {
     }
 
     .carousel-slide img {
-        height: 250px;
+        height: 350px;
+        object-position: center 40%;
     }
 
     .improvement h3,
@@ -407,5 +586,30 @@ body {
     .cta-button {
         padding: 0.8rem 1.5rem;
         font-size: 1rem;
+    }
+
+    .coach-image-container {
+        width: 150px;
+        height: 150px;
+    }
+
+    .coach-intro h3 {
+        font-size: 1.6rem;
+    }
+
+    .coach-quote {
+        font-size: 1rem;
+    }
+
+    .about-header h4 {
+        font-size: 1.4rem;
+    }
+
+    .experience-column h5 {
+        font-size: 1.2rem;
+    }
+
+    .contact-item {
+        padding: 1.5rem;
     }
 }

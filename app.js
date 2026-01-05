@@ -1,7 +1,134 @@
-// Simple JavaScript for Pathway2Pro website
+// app.js - Pathway2Pro International Website with Language Support
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Carousel functionality
+    // ==================== //
+    // LANGUAGE MANAGEMENT //
+    // ==================== //
+    
+    let currentLanguage = localStorage.getItem('preferredLanguage') || 'en';
+    
+    // Initialize language
+    function initLanguage() {
+        // Set HTML lang attribute
+        document.documentElement.lang = currentLanguage;
+        
+        // Update toggle button
+        updateLanguageToggle();
+        
+        // Load translations
+        updatePageContent();
+        
+        // Check if we need to restore from URL hash
+        const hashLang = window.location.hash.substring(1);
+        if (hashLang === 'es' || hashLang === 'en') {
+            switchLanguage(hashLang, false);
+        }
+    }
+    
+    // Update page content with current language
+    function updatePageContent() {
+        const elements = document.querySelectorAll('[data-i18n]');
+        
+        elements.forEach(element => {
+            const key = element.getAttribute('data-i18n');
+            
+            if (translations[currentLanguage] && translations[currentLanguage][key]) {
+                // For elements that might contain HTML (like <br> tags)
+                if (element.tagName === 'P' || element.tagName === 'H1' || 
+                    element.tagName === 'H2' || element.tagName === 'H3' || 
+                    element.tagName === 'H4' || element.tagName === 'H5' ||
+                    element.tagName === 'SPAN' || element.tagName === 'DIV') {
+                    
+                    // Check if translation contains HTML tags
+                    const translation = translations[currentLanguage][key];
+                    if (translation.includes('<br>') || translation.includes('<br/>')) {
+                        element.innerHTML = translation;
+                    } else {
+                        element.textContent = translation;
+                    }
+                } else {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            } else {
+                console.warn(`Translation key "${key}" not found for language "${currentLanguage}"`);
+            }
+        });
+    }
+    
+    // Switch language
+    function switchLanguage(lang, updateURL = true) {
+        if (lang === currentLanguage) return;
+        
+        currentLanguage = lang;
+        localStorage.setItem('preferredLanguage', lang);
+        document.documentElement.lang = lang;
+        
+        // Update toggle button
+        updateLanguageToggle();
+        
+        // Update page content
+        updatePageContent();
+        
+        // Update URL hash without page reload
+        if (updateURL) {
+            window.location.hash = lang;
+        }
+        
+        // Dispatch custom event for any other components that need to know
+        window.dispatchEvent(new CustomEvent('languageChanged', { detail: { language: lang } }));
+    }
+    
+    // Update language toggle button state
+    function updateLanguageToggle() {
+        const toggle = document.getElementById('languageToggle');
+        if (!toggle) return;
+        
+        const enOption = toggle.querySelector('[data-lang="en"]');
+        const esOption = toggle.querySelector('[data-lang="es"]');
+        
+        if (enOption && esOption) {
+            enOption.classList.toggle('active', currentLanguage === 'en');
+            esOption.classList.toggle('active', currentLanguage === 'es');
+        }
+    }
+    
+    // Initialize language toggle event
+    function initLanguageToggle() {
+        const toggle = document.getElementById('languageToggle');
+        if (!toggle) return;
+        
+        // Remove any existing listeners to prevent duplicates
+        const newToggle = toggle.cloneNode(true);
+        toggle.parentNode.replaceChild(newToggle, toggle);
+        
+        // Add click event to new toggle
+        newToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const newLang = currentLanguage === 'en' ? 'es' : 'en';
+            switchLanguage(newLang);
+        });
+        
+        // Add click events to individual language options for better UX
+        const options = newToggle.querySelectorAll('.language-option');
+        options.forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const lang = this.getAttribute('data-lang');
+                if (lang && lang !== currentLanguage) {
+                    switchLanguage(lang);
+                }
+            });
+        });
+    }
+    
+    // ==================== //
+    // CAROUSEL FUNCTIONALITY //
+    // ==================== //
+    
     const carouselTrack = document.querySelector('.carousel-track');
     const slides = document.querySelectorAll('.carousel-slide');
     const dots = document.querySelectorAll('.carousel-dot');
@@ -10,10 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let currentSlide = 0;
     const totalSlides = slides.length;
+    let carouselInterval;
 
     // Update carousel position
     function updateCarousel() {
-        carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        if (carouselTrack) {
+            carouselTrack.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
         
         // Update dots
         dots.forEach((dot, index) => {
@@ -33,24 +163,58 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCarousel();
     }
 
-    // Event listeners for buttons
-    if (nextBtn && prevBtn) {
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
+    // Start auto-advance
+    function startCarousel() {
+        stopCarousel(); // Clear any existing interval
+        carouselInterval = setInterval(nextSlide, 5000);
     }
 
-    // Event listeners for dots
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlide = index;
-            updateCarousel();
+    // Stop auto-advance
+    function stopCarousel() {
+        if (carouselInterval) {
+            clearInterval(carouselInterval);
+        }
+    }
+
+    // Initialize carousel if elements exist
+    if (slides.length > 0) {
+        // Event listeners for buttons
+        if (nextBtn && prevBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                startCarousel(); // Restart timer after manual interaction
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                startCarousel(); // Restart timer after manual interaction
+            });
+        }
+
+        // Event listeners for dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+                startCarousel(); // Restart timer after manual interaction
+            });
         });
-    });
 
-    // Auto-advance carousel every 5 seconds
-    setInterval(nextSlide, 5000);
+        // Start auto-advance
+        startCarousel();
+        
+        // Pause on hover
+        const carousel = document.querySelector('.carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', stopCarousel);
+            carousel.addEventListener('mouseleave', startCarousel);
+        }
+    }
 
-    // Simple animation for improvement items
+    // ==================== //
+    // ANIMATIONS //
+    // ==================== //
+    
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -81,6 +245,10 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
 
+    // ==================== //
+    // CONTACT INTERACTIONS //
+    // ==================== //
+    
     // Make phone number clickable on mobile
     const phoneElements = document.querySelectorAll('.contact-item p');
     phoneElements.forEach(element => {
@@ -103,7 +271,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Simple console log for coaching business
-    console.log('Pathway2Pro Soccer Development - Coach Kevin Elias');
-    console.log('Personalized coaching for motivated players in NJ & NYC');
+    // ==================== //
+    // INITIALIZATION //
+    // ==================== //
+    
+    // Initialize everything
+    initLanguage();
+    initLanguageToggle();
+    
+    // Reinitialize animations when language changes
+    window.addEventListener('languageChanged', () => {
+        // Reapply animations to newly translated elements if needed
+        setTimeout(() => {
+            document.querySelectorAll('.improvement-item, .training-item').forEach(item => {
+                observer.observe(item);
+            });
+        }, 100);
+    });
+
+    // Console message
+    console.log('Pathway2Pro International Soccer Development - Coach Kevin Elias');
+    console.log('Global soccer development organization guiding youth players worldwide');
+    console.log('Language support: English & Español');
 });

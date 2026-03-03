@@ -434,6 +434,49 @@ body {
     font-family: 'Inter', sans-serif;
 }
 
+/* Maps Section */
+.maps-section {
+    padding: 4rem 0;
+    background: var(--background);
+    text-align: center;
+}
+
+.maps-section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 3rem;
+    color: var(--accent);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.maps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.map-item {
+    background: var(--light);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border);
+}
+
+.map-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 76, 135, 0.15);
+}
+
+.map-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
 /* Location Section */
 .location {
     padding: 3rem 0;
@@ -450,10 +493,29 @@ body {
 
 .location-note {
     color: var(--gray);
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+.location-future {
+    color: var(--accent-green);
     font-size: 1rem;
     max-width: 600px;
     margin: 0 auto;
     font-family: 'Inter', sans-serif;
+    font-style: italic;
+}
+
+/* Bold and Underline for Founder Statement */
+.bold-underline {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--accent-green);
 }
 
 /* Coach Profile Section */
@@ -736,6 +798,18 @@ body {
         grid-template-columns: 1fr;
     }
 
+    /* Maps on Tablet */
+    .maps-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .maps-section h3 {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
     .coach-header {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -773,6 +847,18 @@ body {
 
     .about-content p {
         text-align: left;
+    }
+
+    .location h3 {
+        font-size: 1.3rem;
+    }
+    
+    .location-note {
+        font-size: 1rem;
+    }
+    
+    .location-future {
+        font-size: 0.95rem;
     }
 
     /* Contact Grid on Tablet */
@@ -847,8 +933,13 @@ body {
 
     .improvement h3,
     .training h3,
-    .contact h3 {
+    .contact h3,
+    .maps-section h3 {
         font-size: 1.5rem;
+    }
+
+    .maps-section h3 {
+        font-size: 1.3rem;
     }
 
     .coach-image-container {

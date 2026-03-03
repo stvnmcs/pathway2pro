@@ -2,6 +2,39 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // ==================== //
+    // DYNAMIC YEAR UPDATE //
+    // ==================== //
+    
+    function updateCopyrightYear() {
+        const currentYear = new Date().getFullYear();
+        const copyrightElement = document.querySelector('.footer p');
+        
+        if (copyrightElement) {
+            // Update both English and Spanish translations dynamically
+            const baseText = 'Pathway2Pro International Soccer Development. All rights reserved.';
+            const baseTextEs = 'Pathway2Pro International Soccer Development. Todos los derechos reservados.';
+            
+            // Update translations object
+            if (window.translations) {
+                if (window.translations.en && window.translations.en['footer.copyright']) {
+                    window.translations.en['footer.copyright'] = `© ${currentYear} Pathway2Pro International Soccer Development. All rights reserved.`;
+                }
+                if (window.translations.es && window.translations.es['footer.copyright']) {
+                    window.translations.es['footer.copyright'] = `© ${currentYear} Pathway2Pro International Soccer Development. Todos los derechos reservados.`;
+                }
+            }
+            
+            // Update displayed text based on current language
+            const currentLang = localStorage.getItem('preferredLanguage') || 'en';
+            if (currentLang === 'en') {
+                copyrightElement.textContent = `© ${currentYear} Pathway2Pro International Soccer Development. All rights reserved.`;
+            } else {
+                copyrightElement.textContent = `© ${currentYear} Pathway2Pro International Soccer Development. Todos los derechos reservados.`;
+            }
+        }
+    }
+    
+    // ==================== //
     // LANGUAGE MANAGEMENT //
     // ==================== //
     
@@ -17,6 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Load translations
         updatePageContent();
+        
+        // Update copyright year after translations load
+        updateCopyrightYear();
         
         // Check if we need to restore from URL hash
         const hashLang = window.location.hash.substring(1);
@@ -53,6 +89,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.warn(`Translation key "${key}" not found for language "${currentLanguage}"`);
             }
         });
+        
+        // Update copyright year after language change
+        updateCopyrightYear();
     }
     
     // Switch language
@@ -245,6 +284,14 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
 
+    // Observe map items
+    document.querySelectorAll('.map-item').forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateY(20px)';
+        item.style.transition = `all 0.6s ease ${index * 0.1 + 0.5}s`;
+        observer.observe(item);
+    });
+
     // ==================== //
     // CONTACT INTERACTIONS //
     // ==================== //
@@ -283,7 +330,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('languageChanged', () => {
         // Reapply animations to newly translated elements if needed
         setTimeout(() => {
-            document.querySelectorAll('.improvement-item, .training-item').forEach(item => {
+            document.querySelectorAll('.improvement-item, .training-item, .map-item').forEach(item => {
                 observer.observe(item);
             });
         }, 100);

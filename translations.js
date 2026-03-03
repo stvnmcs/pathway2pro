@@ -43,15 +43,16 @@ const translations = {
         "training.international.desc": "Connect with professional pathways worldwide",
         
         // Location Section
-        "location.title": "Available in New Jersey & New York City",
-        "location.note": "Based in Newark, NJ - Travel & schedule flexibility depends on location",
+        "location.title": "Available Worldwide (North / Central / South America & Europe)",
+        "location.note": "Pathway2Pro HeadQuarters - Newark, New Jersey (The Capital of Soccer in the United States)",
+        "location.future": "Future trips to Africa / Asia can be made",
         
         // Coach Profile
         "coach.name": "Coach Kevin Elias",
         "coach.quote": "\"The goal is to give players a chance to play anywhere in the world, regardless of financial and social background\"",
         
         // About Section
-        "about.title": "Kevin Elias - Founder & CEO",
+        "about.title": "Kevin Elias - Founder & CEO Statement",
         "about.para1": "Born and raised in New Jersey, my ideology persisted in attracting what soccer (football) means to me by exploring professional opportunities in the US and the international world.",
         "about.para2": "This project allowed me to discover a deep connection between the rise of football in the USA and Spain, particularly the Major League Soccer (MLS) and La Liga. With two completely different methodologies, I've decided to create a project on combining US and Spanish playing styles for players, coaches, and other sports professionals in the industry. This is an opportunity to create a new and developing impact on the soccer industry for those willing to experience a new \"method\" in two top nations for soccer (football).",
         
@@ -66,10 +67,12 @@ const translations = {
         "experience.professional.item7": "FC Motown U23 (2023-2024)",
         "experience.professional.item8": "Hoboken FC (2025)",
         "experience.professional.item9": "NY Red Bulls Youth Programs Coach (2024-2025)",
+        "experience.professional.item10": "Youth Program Coordinator at Sofive Soccer Centers (2025-2026)",
         "experience.other.title": "Other Experiences",
         "experience.other.item1": "Pathway2Pro - CEO and Founder (Sporting Platform)",
         "experience.other.item2": "Marketing Volunteer at U.S Soccer Foundation (NYC)",
         "experience.other.item3": "Ambassador in Valencia, Spain of Toquero Sports Academy since 2024",
+        "experience.other.item4": "Pathway2Pro Soccer Learning Webinar Classes (Virtual)",
         
         // Contact Section
         "contact.title": "Get In Touch",
@@ -80,7 +83,7 @@ const translations = {
         "contact.linkedin": "LinkedIn",
         
         // Footer
-        "footer.copyright": "© 2025 Pathway2Pro International Soccer Development. All rights reserved."
+        "footer.copyright": "© 2026 Pathway2Pro International Soccer Development. All rights reserved."
     },
     
     es: {
@@ -124,15 +127,16 @@ const translations = {
         "training.international.desc": "Conéctate con trayectorias profesionales en todo el mundo",
         
         // Location Section
-        "location.title": "Disponible en Nueva Jersey y Nueva York",
-        "location.note": "Con sede en Newark, NJ - La flexibilidad de viaje y horario depende de la ubicación",
+        "location.title": "Disponible en Todo el Mundo (Norte / Centro / Sudamérica y Europa)",
+        "location.note": "Sede de Pathway2Pro - Newark, Nueva Jersey (La Capital del Fútbol en los Estados Unidos)",
+        "location.future": "Se pueden realizar viajes futuros a África / Asia",
         
         // Coach Profile
         "coach.name": "Entrenador Kevin Elias",
         "coach.quote": "\"El objetivo es dar a los jugadores la oportunidad de jugar en cualquier parte del mundo, independientemente de su situación económica y social\"",
         
         // About Section
-        "about.title": "Kevin Elias - Fundador y CEO",
+        "about.title": "Kevin Elias - Declaración del Fundador y CEO",
         "about.para1": "Nacido y criado en Nueva Jersey, mi ideología persistió en atraer lo que el fútbol significa para mí al explorar oportunidades profesionales en los Estados Unidos y en el mundo internacional.",
         "about.para2": "Este proyecto me permitió descubrir una profunda conexión entre el ascenso del fútbol en los EE. UU. y España, particularmente la Major League Soccer (MLS) y La Liga. Con dos metodologías completamente diferentes, he decidido crear un proyecto que combine los estilos de juego estadounidense y español para jugadores, entrenadores y otros profesionales del deporte en la industria. Esta es una oportunidad para crear un impacto nuevo y en desarrollo en la industria del fútbol para aquellos dispuestos a experimentar un nuevo \"método\" en dos de las principales naciones del fútbol.",
         
@@ -147,10 +151,12 @@ const translations = {
         "experience.professional.item7": "FC Motown U23 (2023-2024)",
         "experience.professional.item8": "Hoboken FC (2025)",
         "experience.professional.item9": "Entrenador de Programas Juveniles de NY Red Bulls (2024-2025)",
+        "experience.professional.item10": "Coordinador de Programas Juveniles en Sofive Soccer Centers (2025-2026)",
         "experience.other.title": "Otras Experiencias",
         "experience.other.item1": "Pathway2Pro - CEO y Fundador (Plataforma Deportiva)",
         "experience.other.item2": "Voluntario de Marketing en U.S Soccer Foundation (NYC)",
         "experience.other.item3": "Embajador en Valencia, España de Toquero Sports Academy desde 2024",
+        "experience.other.item4": "Clases Webinar de Aprendizaje de Fútbol de Pathway2Pro (Virtual)",
         
         // Contact Section
         "contact.title": "Ponte en Contacto",
@@ -161,7 +167,7 @@ const translations = {
         "contact.linkedin": "LinkedIn",
         
         // Footer
-        "footer.copyright": "© 2025 Pathway2Pro International Soccer Development. Todos los derechos reservados."
+        "footer.copyright": "© 2026 Pathway2Pro International Soccer Development. Todos los derechos reservados."
     }
 };
 
